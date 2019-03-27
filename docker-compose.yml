@@ -1,0 +1,30 @@
+version: '3'
+
+
+services:
+
+    ioBroker:
+        container_name: iobroker
+        restart: on-failure
+        expose:
+            - "8081"
+            - "8082"
+        ports:
+            - "8081:8081"
+            - "8082:8082"
+        build: iobroker
+        image: samjaseu/iobroker:latest
+        privileged: true
+        stdin_open: true
+        volumes:
+            - ./iobroker/data:/opt/iobroker
+        networks:
+            - iobroker-network
+
+
+## NETWORKING
+networks:
+   local:
+       driver: bridge
+   iobroker-network:
+       driver: bridge
